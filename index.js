@@ -1,5 +1,8 @@
+// import packages
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
+// const cTable = require('console.table');
+
 require('dotenv').config();
 
 // Connect to database
@@ -16,18 +19,38 @@ const db = mysql.createConnection(
     console.log(`Connected to the ${process.env.DB_NAME} database.`)
 );
 
-db.query(`SELECT * FROM department`, (err, rows) => {
-    console.log(rows);
-});
-
-// Delete a employee
-
-db.query(`DELETE FROM employee WHERE id = ?`, 1, (err, result) => {
-    if (err) {
-        console.log(err);
+inquirer.prompt([{
+    type: 'list',
+    name: 'action',
+    choices: ['view departments', 'view roles', 'view employee']
+}]).then(answers => {
+    if (answers.action === 'view departments') {
+        console.log('view departments');
     }
-    console.log(result);
-});
+})
+
+
+
+
+
+
+
+
+
+
+
+// db.query(`SELECT * FROM department`, (err, rows) => {
+//     console.log(rows);
+// });
+
+// // Delete a employee
+
+// db.query(`DELETE FROM employee WHERE id = ?`, 1, (err, result) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(result);
+// });
 
 // Create a employee
 
