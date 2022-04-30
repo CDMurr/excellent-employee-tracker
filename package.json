@@ -1,0 +1,23 @@
+{
+  "name": "excellent-employee-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CDMurr/excellent-employee-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CDMurr/excellent-employee-tracker/issues"
+  },
+  "homepage": "https://github.com/CDMurr/excellent-employee-tracker#readme",
+  "dependencies": {
+    "inquire": "^0.4.8"
+  }
+}
