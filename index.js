@@ -1,7 +1,7 @@
 // import packages
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-// const cTable = require('console.table');
+const cTable = require('console.table');
 
 require('dotenv').config();
 
@@ -25,9 +25,27 @@ inquirer.prompt([{
     choices: ['view departments', 'view roles', 'view employee']
 }]).then(answers => {
     if (answers.action === 'view departments') {
-        console.log('view departments');
+        db.query('SELECT * FROM departments', (err, rows) => {
+            if (err) console.log(err);
+            console.table(rows);
+        });
     }
-})
+    else if (answers.action === 'view roles') {
+        db.query('SELECT * FROM roles', (err, rows) => {
+            if (err) console.log(err);
+            console.table(rows);
+        });
+    }
+    else if (answers.action === 'view employee') {
+        db.query('SELECT * FROM employee', (err, rows) => {
+            if (err) console.log(err);
+            console.table(rows);
+
+        });
+    }
+
+});
+
 
 
 

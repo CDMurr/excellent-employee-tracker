@@ -1,9 +1,9 @@
 -- // follow 12.1.6 from module for filling in the files 
-DROP TABLE IF EXISTS department;
+DROP TABLE IF EXISTS departments;
 DROP TABLE IF EXISTS roles;   
 DROP TABLE IF EXISTS employee;
 
-CREATE TABLE department (
+CREATE TABLE departments (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     names VARCHAR(30) NOT NULL
 );

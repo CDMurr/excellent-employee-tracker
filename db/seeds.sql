@@ -1,4 +1,4 @@
-INSERT INTO department (names)
+INSERT INTO departments (names)
 VALUES 
 ('warehouse'),
 ('office');
