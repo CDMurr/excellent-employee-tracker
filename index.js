@@ -22,7 +22,7 @@ const db = mysql.createConnection(
 inquirer.prompt([{
     type: 'list',
     name: 'action',
-    choices: ['view departments', 'view roles', 'view employee', 'add department', 'add role']
+    choices: ['view departments', 'view roles', 'view employee', 'add department', 'add role', 'add employee']
 }]).then(answers => {
     if (answers.action === 'view departments') {
         db.query('SELECT * FROM departments', (err, rows) => {
@@ -79,16 +79,46 @@ inquirer.prompt([{
             }
 
         ]).then(answers => {
-            db.query(`INSERT INTO roles (title, salary, department_id) VALUES ('${answers.roleName}', '${answers.roleSalary}', '${answers.roleDepartment}') `) 
+            db.query(`INSERT INTO roles (title, salary, department_id) VALUES ('${answers.roleName}', '${answers.roleSalary}', '${answers.roleDepartment}') `)
             db.query('SELECT * FROM roles', (err, rows) => {
                 if (err) console.log(err);
                 console.table(rows);
             })
-           
+
         })
     }
-
-});
+    else if (answers.action === 'add employee') {
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'firstName',
+                message: 'what is the first name of new employee?'
+            },
+            {
+                type: 'input',
+                name: 'lastName',
+                message: 'what is the last name of the new employee?',
+            },
+            {
+                type: 'input',
+                name: 'roleId',
+                message: 'what is the id for this role?'
+            },
+            {
+                type: 'input',
+                name: 'managerId',
+                message: 'what is the managers ID?'
+            }
+        ]).then(answers => {
+            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.firstName}', '${answers.lastName}', '${answers.roleId}', '${answers.managerId}')`)
+            db.query('SELECT * FROM employee', (err, rows) => {
+                if (err) console.log(err);
+                console.table(rows);
+        })
+    })
+    }
+}
+);
 
 
 
