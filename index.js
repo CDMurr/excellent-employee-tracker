@@ -22,7 +22,7 @@ const db = mysql.createConnection(
 inquirer.prompt([{
     type: 'list',
     name: 'action',
-    choices: ['view departments', 'view roles', 'view employee']
+    choices: ['view departments', 'view roles', 'view employee', 'add department']
 }]).then(answers => {
     if (answers.action === 'view departments') {
         db.query('SELECT * FROM departments', (err, rows) => {
@@ -43,8 +43,24 @@ inquirer.prompt([{
 
         });
     }
+    // recently added 
+    else if (answers.action === 'add department') {
+        inquirer.prompt([{
+            type: 'input',
+            name: 'departmentName',
+            message: 'what is the name of the new Department?'
+        }
+        ]).then(answers => {
+            db.query(`INSERT INTO departments (names) VALUES ('${answers.departmentName}') `)
+            db.query('SELECT * FROM departments', (err, rows) => {
+                if (err) console.log(err);
+                console.table(rows);
+            });
+        })
+    }
 
 });
+
 
 
 
