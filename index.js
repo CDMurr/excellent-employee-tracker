@@ -22,7 +22,7 @@ const db = mysql.createConnection(
 inquirer.prompt([{
     type: 'list',
     name: 'action',
-    choices: ['view departments', 'view roles', 'view employee', 'add department']
+    choices: ['view departments', 'view roles', 'view employee', 'add department', 'add role']
 }]).then(answers => {
     if (answers.action === 'view departments') {
         db.query('SELECT * FROM departments', (err, rows) => {
@@ -56,6 +56,35 @@ inquirer.prompt([{
                 if (err) console.log(err);
                 console.table(rows);
             });
+        })
+    }
+    // add else if statement, to add role, should promt user for name, salary, and department for role.
+    // role is then added to data base 
+    else if (answers.action === 'add role') {
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'roleName',
+                message: 'what is the new role name?'
+            },
+            {
+                type: 'input',
+                name: 'roleSalary',
+                message: 'what is the salary for this role?',
+            },
+            {
+                type: 'input',
+                name: 'roleDepartment',
+                message: 'what is the department for this role?'
+            }
+
+        ]).then(answers => {
+            db.query(`INSERT INTO roles (title, salary, department_id) VALUES ('${answers.roleName}', '${answers.roleSalary}', '${answers.roleDepartment}') `) 
+            db.query('SELECT * FROM roles', (err, rows) => {
+                if (err) console.log(err);
+                console.table(rows);
+            })
+           
         })
     }
 
